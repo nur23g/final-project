@@ -1,0 +1,10 @@
+
+    <h1>Enable Two-Factor Authentication</h1>
+    <div>
+        <img src="<%= qrcode %>" alt="QR Code">
+    </div>
+    <form action="/auth/2fa/enable" method="POST">
+        <label for="token">Enter Code:</label>
+        <input type="text" id="token" name="token" required>
+        <button type="submit">Verify</button>
+    </form>

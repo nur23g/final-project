@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Random Dog Photos</title>
+</head>
+<body>
+  <h1>Random Dog Photos</h1>
+  <p>Click the button below to load a random dog photo!</p>
+  <button onclick="fetchDogPhoto()">Get Dog Photo</button>
+  
+  <div id="dog-photo"></div>
+
+  <script>
+    async function fetchDogPhoto() {
+      try {
+        const apiUrl = 'https://random.dog/woof.json';
+     
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+
+        const photoDiv = document.getElementById('dog-photo');
+        photoDiv.innerHTML = '';
+
+        if (data && data.url) {
+          const img = document.createElement('img');
+          img.src = data.url;
+          img.alt = 'Random Dog Photo';
+          img.style.width = '100%'; 
+          photoDiv.appendChild(img);
+        } else {
+          photoDiv.innerHTML = '<p>No photo available.</p>';
+        }
+      } catch (error) {
+        console.error('Error fetching dog photo:', error);
+        document.getElementById('dog-photo').innerHTML = '<p>Error fetching photo. Please try again later.</p>';
+      }
+    }
+  </script>
+</body>
+</html>

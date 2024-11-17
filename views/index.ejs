@@ -1,0 +1,52 @@
+<div class="author">
+    <h1 class="author__heading">Personal blog & Portfolio</h1>
+    <p class="author__body">Welcome to our platform!</p>
+  </div>
+  
+  <script>
+    const unsplashAccessKey = 'cYQAyRPA_m1CccJl71i6qZPho0EA7Zyl3mOh-OP4WaQ';
+  
+    async function getRandomImageFromUnsplash() {
+      const url = `https://api.unsplash.com/photos/random?client_id=${unsplashAccessKey}`;
+      const response = await fetch(url);
+  
+      if (!response.ok) {
+        throw new Error(`Unsplash API request failed with status ${response.status}`);
+      }
+  
+      const data = await response.json();
+      const imageUrl = data.urls.regular;
+  
+      const heroImage = document.querySelector('.hero-image');
+      heroImage.src = imageUrl;
+      heroImage.alt = data.alt_description || 'Unsplash image'; 
+    }
+  
+    getRandomImageFromUnsplash().catch(error => {
+      console.error('Error fetching image:', error);
+      
+    });
+  </script>
+  
+  <img src="" alt="Unsplash image" class="hero-image" width="981" height="528">
+  
+  <section class="articles">
+    <h2 class="articles__heading">Portfolios</h2>
+  
+    <ul class="article-ul">
+      <% data.forEach(post => { %>
+        <li>
+          <a href="/post/<%= post._id %>">
+            <span><%= post.title %></span>
+            <span class="article-list__date"><%= post.createdAt.toDateString() %></span>
+          </a>
+        </li>
+      <% }) %>
+    </ul>
+  
+  
+    <% if (nextPage !== null) { %>
+      <a href="/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
+    <% } %>
+  
+  </section>

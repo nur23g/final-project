@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Facts</title>
+</head>
+<body>
+  <h1>Facts</h1>
+  <p>Click the button below to load random facts!</p>
+  <button onclick="fetchFacts()">Get Facts</button>
+
+  <div id="facts"></div>
+
+  <script>
+    async function fetchFacts() {
+      try {
+        const apiUrl = 'https://numbersapi.p.rapidapi.com/6/21/date';
+        const options = {
+          method: 'GET',
+          headers: {
+            'x-rapidapi-key': 'Sign Up for Key', // Replace with your actual API key
+            'x-rapidapi-host': 'numbersapi.p.rapidapi.com'
+          }
+        };
+
+        const response = await fetch(apiUrl, options);
+        const fact = await response.text(); // Numbers API sends plain text
+
+        const factsDiv = document.getElementById('facts');
+        factsDiv.innerHTML = `<p>${fact}</p>`;
+      } catch (error) {
+        console.error('Error fetching facts:', error);
+        document.getElementById('facts').innerHTML = '<p>Error fetching facts. Please try again later.</p>';
+      }
+    }
+  </script>
+</body>
+</html>
